@@ -1,0 +1,34 @@
+###
+
+GET http://localhost:3000/api/art/20830
+
+###
+
+GET http://localhost:3000/api/art?type=fastyyyyy
+
+####
+
+POST http://localhost:3000/api/art/20830/comments
+Content-Type: application/json
+
+{
+  "userId": "2",
+  "name": "Magger2",
+  "content": "This is a short comment2",
+  "artId": "20830"
+}
+
+###
+
+GET http://localhost:3000/api/users
+
+###
+
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "name": "harden",
+  "age": 11,
+  "location": "Uganga"
+}
