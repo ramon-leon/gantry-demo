@@ -53,7 +53,10 @@ $ import database from backup (gantri_backup) using pgadmin tool
 $ npm run start
 
 server will run on part 3000
-entrypoint main.ts
+
+// sample request  (gantri-demo/test.http)
+
+
 
 ```
 
