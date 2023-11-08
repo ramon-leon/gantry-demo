@@ -1,34 +1,34 @@
-###
+### GET ONE ART RECORD
 
 GET http://localhost:3000/api/art/20830
 
-###
+### GET LIST OF ARTS FILTER BY TYPE
 
 GET http://localhost:3000/api/art?type=fastyyyyy
 
-####
+#### ADD COMMENT TO AN ART RECORD
 
 POST http://localhost:3000/api/art/20830/comments
 Content-Type: application/json
 
 {
-  "userId": "2",
-  "name": "Magger2",
+  "userId": "25",
+  "name": "Raymon",
   "content": "This is a short comment2",
   "artId": "20830"
 }
 
-###
+### LIST ALL USERS
 
 GET http://localhost:3000/api/users
 
-###
+### CREATE AN USER
 
 POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-  "name": "harden",
-  "age": 11,
-  "location": "Uganga"
+  "name": "Raymon",
+  "age": 25,
+  "location": "San Jose"
 }

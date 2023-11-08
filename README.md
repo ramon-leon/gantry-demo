@@ -8,14 +8,32 @@ Endpoints:
 - /api/users - POST, create user
 - /api/users - GET, see all users
 
+Rest API were developed using the following tech stack / framework
+
+* NodeJS / Typescript
+* NestJS framework
+* Native Postgres (recommend using ORM like TypeORM / Prisma)
+* /api/art - GET, view the entire art data set 
+  * recommend using pagination in the absence of filter in the requirements
+  * using 2 queries is not optimal - we can possibly store the comments in the art table
+  * or using a stored procedure to return results to reduce the number of db calls
+
+## Preinstallation an notes
+
+```bash
+Following postgres database configuration may need to be changed (see .env for details)
+    PG_PORT=5434
+    PG_DATABASE=demo
+```
+
 ## Installation
 
 ```bash
 $ install postgres database
-$ import database using pgadmin tool 
+$ install node
+$ import database from backup (gantri_backup) using pgadmin tool 
   or from cli
-    /Library/PostgreSQL/16/pgAdmin 4.app/Contents/SharedSupport/pg_restore --host "localhost" --port "5434" --username "postgres" --no-password --dbname "demo" --verbose "/Users/ramonl/gantri_bk"
-$ npm install
+/Library/PostgreSQL/16/pgAdmin 4.app/Contents/SharedSupport/pg_restore --host "localhost" --port "5433" --username "postgres" --no-password --dbname "demo" --format=d --verbose "/Users/ramonl/IdeaProjects/untitled3/gantri-demo/gantri_backup"$ npm install
 
 ```
 
@@ -25,36 +43,13 @@ $ npm install
 # development
 $ npm run start
 
-# watch mode
-$ npm run start:dev
+server will run on part 3000
+entrypoint main.ts
 
-# production mode
-$ npm run start:prod
 ```
 
-## Test
+## Troubleshooting
 
 ```bash
-# unit tests
-$ npm run test
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
