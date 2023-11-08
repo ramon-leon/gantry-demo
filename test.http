@@ -4,7 +4,7 @@ GET http://localhost:3000/api/art/20830
 
 ### GET LIST OF ARTS FILTER BY TYPE
 
-GET http://localhost:3000/api/art?pagesize=10&page=2
+GET http://localhost:3000/api/art?pagesize=3&page=2
 
 #### ADD COMMENT TO AN ART RECORD
 
@@ -12,8 +12,9 @@ POST http://localhost:3000/api/art/20830/comments
 Content-Type: application/json
 
 {
-  "name": "Raymon1",
-  "content": "This is a short comment2",
+  "userId": "888",
+  "name": "777",
+  "content": "777",
   "artId": "20830"
 }
 
@@ -27,7 +28,7 @@ POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-  "name": "R1aya111a1mo1n3",
+  "name": "RAM",
   "age": 25,
-  "location": "dsdsd"
+  "location": "california"
 }
