@@ -12,12 +12,20 @@ Rest API were developed using the following tech stack / framework
 
 * NodeJS / Typescript
 * NestJS framework
-  * Entry point main.ts
+  - Entry point main.ts
 * Native Postgres (recommend using ORM like TypeORM / Prisma)
-* /api/art - GET, view the entire art data set 
-  * recommend using pagination in the absence of filter in the requirements
-  * using 2 queries is not optimal - we can possibly store the comments in the art table
-  * or using a stored procedure to return results to reduce the number of db calls
+* /api/art - GET, view the entire art data set
+  - we could a stored procedure to return results in one query
+* Validation - (improvement) can use validation libraries such a Zod
+
+## ASSUMPTIONS / Notes:
+
+```bash
+For - /api/art - returning the results in desc order by id. Implemented pagination (page/pagesize)
+    - /api/users - same as above
+    
+Return codes : 200 (Success) / 201 (Created) / 400 (Bad Request) / 500 (Internal Service Error)
+```
 
 ## Preinstallation an notes
 

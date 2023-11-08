@@ -24,6 +24,7 @@ export class ArtService {
                 res = 'No record found';
             }
         } catch (err) {
+            console.error(err);
             throw 500;
         }
         return res;
@@ -59,6 +60,7 @@ export class ArtService {
             }
             return artRecords;
         } catch (err) {
+            console.error(err);
             throw 500;
         }
     }
@@ -66,7 +68,7 @@ export class ArtService {
     async addComment({userId, name, content, artId}): Promise<string> {
         let result;
         if (!isDefined(content) || (!isDefined(userId) && !isDefined(name))) {
-            console.error('At least one required field is missing a value or is invalid');
+            console.error('Bad Request, at least one required field is missing a value or is invalid');
             throw 400
         }
         if (isDefined(userId)) {
@@ -74,7 +76,7 @@ export class ArtService {
                                                from "user"
                                                where id = $1`, [userId]);
             if (result.rows.length) {
-                console.error("Invalid userId");
+                console.error("Bad Request, invalid userId");
                 throw 400
             }
         } else {
@@ -83,7 +85,7 @@ export class ArtService {
                                                where "artId" = $1
                                                  and name = $2`, [artId, name]);
             if (result.rows.length) {
-                console.error(`There is already a comment added by this non-user ${name}`);
+                console.error(`Bad Request, there is already a comment added by this non-user ${name}`);
                 throw 400
             }
         }
@@ -92,6 +94,7 @@ export class ArtService {
                                          values ($1, $2, $3, $4)`,
                 [userId, name, content, artId]);
         } catch (err) {
+            console.error(err);
             throw 500;
         }
 

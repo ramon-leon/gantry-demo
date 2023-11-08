@@ -16,6 +16,7 @@ export class UserService {
                                                from "user" order by id desc limit $1 offset $2`, [limit, offset]);
             rows = result.rows;
         } catch (err) {
+            console.error(err);
             throw 500;
         }
 
@@ -25,19 +26,20 @@ export class UserService {
     async createUser({name, age, location}) {
         try {
             if (!isDefined(name) || !isDefined(location) || !age || age < 0 || age >= 200) {
-                console.error(`At least one required field is missing a value or is invalid`);
+                console.error(`Bad Request, at least one required field is missing a value or is invalid`);
                 throw 400
             }
             const resultUser = await client.query(`select id
                                                from "user" where name = $1`, [name]);
             if (resultUser.rows.length) {
-                console.error(`Unable to create user, User ${name} already exists`);
+                console.error(`Bad Request, unable to create user, User ${name} already exists`);
                 throw 400
             }
             await client.query(`insert into "user" (name, age, location)
                                                values ($1, $2, $3) `,
                 [name, age, location]);
         } catch (err) {
+            console.error(err);
             throw 500;
         }
 
