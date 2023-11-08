@@ -15,8 +15,8 @@ export class ArtService {
             let result1;
             if (result.rows.length) {
                 result1 = await client.query(`select "userID", name, content
-                                                    from comments
-                                                    where "artId" = $1`, [result.rows[0].id]);
+                                              from comments
+                                              where "artId" = $1`, [result.rows[0].id]);
                 res = {...result.rows[0]};
                 res['comment'] = result1.rows;
             } else {
@@ -29,24 +29,29 @@ export class ArtService {
         return res;
     }
 
-    async getListArt(): Promise<ArtDto[]> {
+    async getListArt(page, pagesize): Promise<ArtDto[]> {
         let result;
         let artRecords = [];
+        let limit = pagesize && pagesize > 0 ? pagesize : 100;
+        let offset = page && page > 0 ? limit * (page - 1) : 0;
+
         try {
             result = await client.query(`select id, title, artist, year
-                                               from arts
-                                               where id in (20830, 20400)`);
+                                         from arts order by id desc
+                                         limit $1
+                                         offset $2`, [limit, offset]);
             let result1;
             if (result.rows.length) {
                 artRecords = result.rows;
-                let ids = artRecords.map( x => (x.id));
+                let ids = artRecords.map(x => (x.id));
                 result1 = await client.query(`select "userID", name, content, "artId"
-                                                    from arts A left join comments on "artId" = A.id
-                                                    where A.id in ( ${ids})`);
+                                              from arts A
+                                                       left join comments on "artId" = A.id
+                                              where A.id in (${ids})`);
                 const comments = result1.rows;
 
-                artRecords.forEach( x => {
-                    let arr = comments.filter( y => y.artId === x.id)
+                artRecords.forEach(x => {
+                    let arr = comments.filter(y => y.artId === x.id)
                     x['comment'] = arr;
                 })
             } else {
@@ -66,14 +71,17 @@ export class ArtService {
         }
         if (isDefined(userId)) {
             const result = await client.query(`select id
-                                               from "user" where id = $1`, [userId]);
+                                               from "user"
+                                               where id = $1`, [userId]);
             if (result.rows.length) {
                 console.error("Invalid userId");
                 throw 400
             }
         } else {
             const result = await client.query(`select id
-                        from comments where "artId" = $1 and name = $2`, [artId, name]);
+                                               from comments
+                                               where "artId" = $1
+                                                 and name = $2`, [artId, name]);
             if (result.rows.length) {
                 console.error(`There is already a comment added by this non-user ${name}`);
                 throw 400
@@ -81,7 +89,7 @@ export class ArtService {
         }
         try {
             result = await client.query(`insert into comments ("userID", name, content, "artId")
-                                               values ($1, $2, $3, $4)`,
+                                         values ($1, $2, $3, $4)`,
                 [userId, name, content, artId]);
         } catch (err) {
             throw 500;

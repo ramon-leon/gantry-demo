@@ -10,8 +10,8 @@ export class ArtController {
     // GET, view the entire art data set
     // need to implement pagination
     @Get()
-    async getListArts(@Query('type') type: string): Promise<ArtDto[]> {
-        return this.artService.getListArt();
+    async getListArts(@Query('page') page: string, @Query('pagesize') pagesize: string): Promise<ArtDto[]> {
+        return this.artService.getListArt(page, pagesize);
     }
 
     // GET, view art data by ID

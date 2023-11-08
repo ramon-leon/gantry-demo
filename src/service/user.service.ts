@@ -6,12 +6,14 @@ import {isDefined} from "../util/validate";
 @Injectable()
 export class UserService {
 
-    async getListUser(): Promise<User[]> {
+    async getListUser(page, pagesize): Promise<User[]> {
         let rows = []
+        let limit = pagesize && pagesize > 0 ? pagesize : 100;
+        let offset = page && page >0 ? limit * (page -1) : 0;
 
         try {
             const result = await client.query(`select id, name, age, location
-                                               from "user"`);
+                                               from "user" order by id desc limit $1 offset $2`, [limit, offset]);
             rows = result.rows;
         } catch (err) {
             throw 500;

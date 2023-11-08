@@ -9,8 +9,8 @@ export class UserController {
     }
 
     @Get()
-    async getListUser(): Promise<User[]> {
-        return this.userService.getListUser();
+    async getListUser(@Query('page') page: string, @Query('pagesize') pagesize: string): Promise<User[]> {
+        return this.userService.getListUser(page, pagesize);
     }
 
     @Post()

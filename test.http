@@ -4,7 +4,7 @@ GET http://localhost:3000/api/art/20830
 
 ### GET LIST OF ARTS FILTER BY TYPE
 
-GET http://localhost:3000/api/art?type=fastyyyyy
+GET http://localhost:3000/api/art?pagesize=10&page=2
 
 #### ADD COMMENT TO AN ART RECORD
 
