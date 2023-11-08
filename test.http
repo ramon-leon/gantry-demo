@@ -12,8 +12,7 @@ POST http://localhost:3000/api/art/20830/comments
 Content-Type: application/json
 
 {
-  "userId": "25",
-  "name": "Raymon",
+  "name": "Raymon1",
   "content": "This is a short comment2",
   "artId": "20830"
 }
@@ -28,7 +27,7 @@ POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-  "name": "Raymon",
+  "name": "R1aya111a1mo1n3",
   "age": 25,
-  "location": "San Jose"
+  "location": "dsdsd"
 }

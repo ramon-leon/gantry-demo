@@ -11,7 +11,7 @@ export class ArtController {
     // need to implement pagination
     @Get()
     async getListArts(@Query('type') type: string): Promise<ArtDto[]> {
-        return this.artService.getListArt(type);
+        return this.artService.getListArt();
     }
 
     // GET, view art data by ID

@@ -12,6 +12,7 @@ Rest API were developed using the following tech stack / framework
 
 * NodeJS / Typescript
 * NestJS framework
+  * Entry point main.ts
 * Native Postgres (recommend using ORM like TypeORM / Prisma)
 * /api/art - GET, view the entire art data set 
   * recommend using pagination in the absence of filter in the requirements
